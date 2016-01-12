@@ -1,0 +1,28 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    atk (3.0.7)
+      glib2 (= 3.0.7)
+    cairo (1.14.3)
+      pkg-config (>= 1.1.5)
+    gdk_pixbuf2 (3.0.7)
+      glib2 (= 3.0.7)
+    glib2 (3.0.7)
+      pkg-config
+    gtk2 (3.0.7)
+      atk (= 3.0.7)
+      gdk_pixbuf2 (= 3.0.7)
+      pango (= 3.0.7)
+    pango (3.0.7)
+      cairo (>= 1.14.0)
+      glib2 (= 3.0.7)
+    pkg-config (1.1.7)
+    ruby-libappindicator (0.1.5)
+      gtk2
+      pkg-config
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  ruby-libappindicator
