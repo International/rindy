@@ -18,6 +18,12 @@ class App
     @ai.set_menu(@menu)
     @ai.set_status(AppIndicator::Status::ACTIVE)
 
+    setup_links
+
+    add_menu_item "Quit" do
+      Gtk.main_quit
+    end
+
     @menu.show_all
   end
 
@@ -26,6 +32,18 @@ class App
   end
 
   private
+  def setup_links
+    @links = [
+      "http://google.com"
+    ]
+
+    @links.each do |link|
+      add_menu_item link do
+        system "sensible-browser", link
+      end
+    end
+  end
+
   def connect_item(item, action)
     item.signal_connect "activate", &action
   end
