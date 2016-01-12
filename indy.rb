@@ -31,15 +31,25 @@ class App
     Gtk.main
   end
 
+  class AppLink
+    attr_reader :url, :title
+
+    def initialize(title, url)
+      @title = title
+      @url = url
+    end
+
+  end
+
   private
   def setup_links
-    @links = [
-      "http://google.com"
+    @link_items = [
+      AppLink.new("Google", "http://google.com")
     ]
 
-    @links.each do |link|
-      add_menu_item link do
-        system "sensible-browser", link
+    @link_items.each do |item|
+      add_menu_item item.title do
+        system "sensible-browser", item.url
       end
     end
   end
