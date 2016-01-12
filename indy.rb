@@ -2,41 +2,40 @@ require "rubygems"
 require "bundler"
 Bundler.require(:default)
 
-def menu
-  filemenu = Gtk::Menu.new
+class App
+  def initialize
+    @ai = AppIndicator::AppIndicator.new("test", "indicator-messages", AppIndicator::Category::APPLICATION_STATUS);
+    @menu = Gtk::Menu.new
 
-  file_item = Gtk::MenuItem.new "File"
-  filemenu.append(file_item)
-
-  exit_menu_item = Gtk::MenuItem.new "Exit"
-  exit_menu_item.signal_connect "activate" do
-    Gtk.main_quit
+    setup
   end
 
-  filemenu.append(exit_menu_item)
-  filemenu.show_all
+  def setup
+    add_menu_item "File" do
+      puts "Clicked on file"
+    end
 
-  filemenu
+    @ai.set_menu(@menu)
+    @ai.set_status(AppIndicator::Status::ACTIVE)
 
-  # mb = Gtk::MenuBar.new
+    @menu.show_all
+  end
 
-  # filem = Gtk::MenuItem.new "File"
-  # filem.set_submenu filemenu
-  #
-  # exit = Gtk::MenuItem.new "Exit"
-  # exit.signal_connect "activate" do
-  #   Gtk.main_quit
-  # end
-  #
-  # filemenu.append exit
-  #
-  # filemenu
-  #  mb.append filem
+  def run
+    Gtk.main
+  end
+
+  private
+  def connect_item(item, action)
+    item.signal_connect "activate", &action
+  end
+
+  def add_menu_item(label, &action)
+    item = Gtk::MenuItem.new(label)
+    connect_item(item, action)
+
+    @menu.append(item)
+  end
 end
 
-ai = AppIndicator::AppIndicator.new("test", "indicator-messages", AppIndicator::Category::APPLICATION_STATUS);
-
-ai.set_menu(menu)
-ai.set_status(AppIndicator::Status::ACTIVE)
-
-Gtk.main
+App.new.run
