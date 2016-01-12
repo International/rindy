@@ -4,7 +4,13 @@ Bundler.require(:default)
 
 class App
   def initialize
-    @ai = AppIndicator::AppIndicator.new("test", "indicator-messages", AppIndicator::Category::APPLICATION_STATUS);
+    svg_path = File.expand_path(File.join(File.dirname(__FILE__),"fire.svg"))
+    @ai = AppIndicator::AppIndicator.new(
+      "test",
+      svg_path,
+      AppIndicator::Category::APPLICATION_STATUS
+    )
+
     @menu = Gtk::Menu.new
 
     setup
