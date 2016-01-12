@@ -34,7 +34,7 @@ class App
   class AppLink
     attr_reader :url, :title
 
-    def initialize(title, url)
+    def initialize(title:,url:)
       @title = title
       @url = url
     end
@@ -44,7 +44,7 @@ class App
   private
   def setup_links
     @link_items = [
-      AppLink.new("Google", "http://google.com")
+      AppLink.new(title: "Google", url: "http://google.com")
     ]
 
     @link_items.each do |item|
